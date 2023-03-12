@@ -1,0 +1,14 @@
+﻿## Interface: 30300
+## Title:-|cFF00DDFF[HappyDev]|r HappyAutoReply 自动回复脚本检测问题
+## Author: hpsnk
+## Notes:[HappyDev]千人Q群：|cFF00DDFF1018746321|r|N 帮助团队管理快速组人.（小地图设置）
+## Version: 1.0.0
+## SavedVariables: HappyAutoReplyData
+## SavedVariablesPerCharacter: HappyAutoReplyDataPerCharDB
+
+## globals.lua
+## core.lua
+## MainFrame.xml
+
+HappyAutoReply.lua
+HappyAutoReplyFrame.xml
