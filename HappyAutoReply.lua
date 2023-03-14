@@ -73,12 +73,25 @@ SlashCmdList["HAR"] = function(msg)
 		print("---->xxx   - switch trace flag.")
 		print("[HappyAutoReply]Active=" .. tostring(HAR_ACTIVE_FLAG) .. "." );
 		print("[HappyAutoReply]Trace =" .. tostring(TRACE_FLAG) .. "." );
-		
 
 	else
 		-- LOGGER.debug("arg=" .. arg);
-		SendChatMessage(testMsg1 .. cmd .. testMsg2);
+		-- SendChatMessage(testMsg1 .. cmd .. testMsg2);
 		-- print("" .. msg .. " is not a valid command for /har");
+		
+		for i = 1, STATICPOPUP_NUMDIALOGS do
+			local frame = _G["StaticPopup"..i]
+			print(i .. " --> " .. frame)
+			-- if frame:IsVisible() and frame.which == "PARTY_INVITE" then
+			-- 	frame.inviteAccepted = 1
+			-- 	StaticPopup_Hide("PARTY_INVITE")
+			-- 	return
+			-- elseif frame:IsVisible() and frame.which == "PARTY_INVITE_XREALM" then
+			-- 	frame.inviteAccepted = 1
+			-- 	StaticPopup_Hide("PARTY_INVITE_XREALM")
+			-- 	return
+			-- end
+		end
 	end
 end
 
@@ -116,19 +129,37 @@ function HAR_EventHandler(self, event, ...)
 		LOGGER.trace(playerName .. " invite you into a party.");
 		AUTO_FOLLOW_PLAYER_NAME = playerName;
 		AcceptGroup();
+		-- LOGGER.trace("AcceptGroup");
+		-- StaticPopup_Hide("PARTY_INVITE");
+		-- LOGGER.trace("Close PARTY_INVITE Frame.");
+
+		for i = 1, STATICPOPUP_NUMDIALOGS do
+			local frame = _G["StaticPopup"..i]
+			print(i .. " --> " .. frame)
+			if frame:IsVisible() and frame.which == "PARTY_INVITE" then
+				frame.inviteAccepted = 1
+				StaticPopup_Hide("PARTY_INVITE")
+				return
+			elseif frame:IsVisible() and frame.which == "PARTY_INVITE_XREALM" then
+				frame.inviteAccepted = 1
+				StaticPopup_Hide("PARTY_INVITE_XREALM")
+				return
+			end
+		end
 
 	elseif event == "CHAT_MSG_PARTY" or event == "CHAT_MSG_PARTY_LEADER" then
-		local msgText, playerName = ...;
+		local msgText, playerName, _, _, playerName2 = ...;
 		LOGGER.trace("receive PARTY message. msg=" .. msgText .. ".");
-		if HAR_isStartFllowMsg(playerName, msgText) then
-			LOGGER.trace("  start follow by >>" .. playerName .. "<<.");
-			HAR_followStart();
+		
+		-- if HAR_isStartFllowMsg(playerName, msgText) then
+		-- 	LOGGER.trace("  start follow by >>" .. playerName .. "<<.");
+		-- 	HAR_followStart();
 
-		elseif HAR_isStopFllowMsg(playerName, msgText) then
-			LOGGER.trace("  stop follow by >>" .. playerName .. "<<.");
-			HAR_followStop();
+		-- elseif HAR_isStopFllowMsg(playerName, msgText) then
+		-- 	LOGGER.trace("  stop follow by >>" .. playerName .. "<<.");
+		-- 	HAR_followStop();
 
-		end
+		-- end
 	end
 end
 

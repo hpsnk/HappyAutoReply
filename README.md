@@ -11,7 +11,7 @@
 - 2.1 跟随任意成员
 
 StaticPopup_Hide
-
+StaticPopup_Hide("PARTY_INVITE")
 ---
 
 ## 自动接收邀请
