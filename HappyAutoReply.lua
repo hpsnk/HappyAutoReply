@@ -81,7 +81,9 @@ SlashCmdList["HAR"] = function(msg)
 		
 		for i = 1, STATICPOPUP_NUMDIALOGS do
 			local frame = _G["StaticPopup"..i]
-			print(i .. " --> " .. frame)
+
+			HAR_dumpTableValue(frame) 
+			-- print(i .. " --> " .. frame)
 			-- if frame:IsVisible() and frame.which == "PARTY_INVITE" then
 			-- 	frame.inviteAccepted = 1
 			-- 	StaticPopup_Hide("PARTY_INVITE")
@@ -304,4 +306,18 @@ function HAR_saveLog(event, sender, msg)
 		HappyAutoReplyDataPerCharDB.log[idx] = checkMsg;
 	end
 
+end
+
+function HAR_dumpTableValue(valTable)
+	for pos,val in pairs(valTable) do
+
+		LOGGER.debug( "  " .. pos .. ":" .. type(val) );
+
+		-- if (type(val)=="table") then
+		-- elseif (type(val)=="string") then
+		-- 	LOGGER.debug();
+		-- else
+		-- end
+
+	end	
 end
