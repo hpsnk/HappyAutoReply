@@ -82,7 +82,8 @@ SlashCmdList["HAR"] = function(msg)
 		for i = 1, STATICPOPUP_NUMDIALOGS do
 			local frame = _G["StaticPopup"..i]
 
-			HAR_dumpTableValue(frame) 
+			LOGGER.debug(i);
+			HAR_dumpFrame(frame);
 			-- print(i .. " --> " .. frame)
 			-- if frame:IsVisible() and frame.which == "PARTY_INVITE" then
 			-- 	frame.inviteAccepted = 1
@@ -308,16 +309,30 @@ function HAR_saveLog(event, sender, msg)
 
 end
 
+function HAR_dumpFrame(valFrame)
+	local frameName = valFrame.which;
+
+	if frameName == nil then
+		frameName = "null";
+		-- LOGGER.debug( frameName .. ", visable:" .. valFrame:IsVisible() );
+		LOGGER.debug( frameName .. ", visable:false" );
+	else
+		LOGGER.debug( frameName .. ", visable:" .. valFrame:IsVisible() );
+		LOGGER.debug( "  close it!" );
+		StaticPopup_OnClick(valFrame, 1)
+	end
+	-- if frame:IsVisible() and frame.which == "PARTY_INVITE" then
+end
+
 function HAR_dumpTableValue(valTable)
-	for pos,val in pairs(valTable) do
-
-		LOGGER.debug( "  " .. pos .. ":" .. type(val) );
-
-		-- if (type(val)=="table") then
-		-- elseif (type(val)=="string") then
-		-- 	LOGGER.debug();
-		-- else
-		-- end
-
-	end	
+	-- for pos,val in pairs(valTable) do
+	-- 	if ( type(val) == "table" ) then
+	-- 		-- LOGGER.debug( "  [" .. type(val) .. "]" .. pos .. ":" .. "...." );
+	-- 		HAR_dumpTableValue(val);
+	-- 	elseif ( type(val) == "string" ) then
+	-- 		LOGGER.debug( "  [" .. type(val) .. "]" .. pos .. ":" .. val );
+	-- 	else
+	-- 		LOGGER.debug( "  [" .. type(val) .. "]" .. pos .. ":" .. tostring(val) );
+	-- 	end
+	-- end	
 end

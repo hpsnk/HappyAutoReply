@@ -12,6 +12,10 @@
 
 StaticPopup_Hide
 StaticPopup_Hide("PARTY_INVITE")
+
+GOSSIP_CONFIRM
+
+/rl
 ---
 
 ## 自动接收邀请
