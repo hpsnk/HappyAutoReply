@@ -69,16 +69,11 @@ SlashCmdList["HAR"]         = function(msg)
 		print("[HappyAutoReply]Trace =" .. tostring(TRACE_FLAG) .. ".");
 	else
 		-- LOGGER.debug("arg=" .. arg);
-		SendChatMessage(testMsg1 .. cmd .. testMsg2);
+		-- SendChatMessage(testMsg1 .. cmd .. testMsg2);
 		-- print("" .. msg .. " is not a valid command for /har");
 
-		for i = 1, STATICPOPUP_NUMDIALOGS do
-			local frame = _G["StaticPopup" .. i]
+		HAR_dumpAllFrame();
 
-			LOGGER.debug(i);
-
-			HAR_dumpFrame(frame);
-		end
 	end
 end
 
@@ -280,19 +275,29 @@ function HAR_saveLog(event, sender, msg)
 	end
 end
 
-function HAR_dumpFrame(valFrame)
-	local frameName = valFrame.which;
+function HAR_dumpAllFrame()
 
-	if frameName == nil then
-		frameName = "null";
-		-- LOGGER.debug( frameName .. ", visable:" .. valFrame:IsVisible() );
-		LOGGER.debug(frameName .. ", visable:false");
-	else
-		LOGGER.debug(frameName .. ", visable:" .. valFrame:IsVisible());
-		LOGGER.debug("  close it!");
-		-- StaticPopup_OnClick(valFrame, 1)
+	for i = 1, STATICPOPUP_NUMDIALOGS do
+		local frame = _G["StaticPopup" .. i]
+
+		LOGGER.debug(i);
+
+		local frameName = frame.which;
+
+		if frameName == nil then
+			frameName = "null";
+			-- LOGGER.debug( frameName .. ", visable:" .. valFrame:IsVisible() );
+			LOGGER.debug(frameName .. ", visable:false");
+		else
+			LOGGER.debug(frameName .. ", visable:" .. frame:IsVisible());
+			LOGGER.debug("  close it!");
+			StaticPopup_OnClick(frame, 1)
+		end
+		
 	end
-	-- if frame:IsVisible() and frame.which == "PARTY_INVITE" then
+
+
+
 end
 
 function HAR_dumpTableValue(valTable)
